@@ -16,7 +16,17 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 1aa166306b0f338469492fcadfe43463
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 99c9720ab356a0642a771bea13969a05
+    m_Address: Assets/Scenes/bootStrap.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: df91fde8ef32acb4884382c3be4a01d1
+    m_Address: Assets/Scenes/Stages/Prototype.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 845b7e9dcae73594cb8743bc90aab5d0, type: 2}
   m_SchemaSet:
