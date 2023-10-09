@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ab15de5a24a9d74188325de8f3cf16f, type: 3}
+  m_Name: data
+  m_EditorClassIdentifier: 
+  m_globalScenes: []
+  m_relationships:
+  - scene:
+      m_AssetGUID: df91fde8ef32acb4884382c3be4a01d1
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+      m_path: Assets/Scenes/Stages/Prototype.unity
+    subscenes:
+    - m_AssetGUID: 99c9720ab356a0642a771bea13969a05
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+      m_path: Assets/Scenes/bootStrap.unity
+  - scene:
+      m_AssetGUID: 99c9720ab356a0642a771bea13969a05
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+      m_path: Assets/Scenes/bootStrap.unity
+    subscenes: []
