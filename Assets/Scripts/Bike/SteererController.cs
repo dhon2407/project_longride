@@ -24,10 +24,12 @@ namespace Bike
 
         private Transform _transform;
         private bool _active;
+        private Quaternion _restingRotation;
 
         private void Awake()
         {
             _transform = transform;
+            _restingRotation = _transform.localRotation;
             _active = _transform != null;
         }
 
@@ -37,6 +39,7 @@ namespace Bike
                 return;
 
             _transform.RotateAround(_transform.position, _transform.up, angle);
+            _transform.localRotation = _restingRotation * Quaternion.Euler(0, angle, 0);
             InvokeOnChangeSteer(angle);
         }
         
@@ -59,15 +62,5 @@ namespace Bike
         {
             OnChangeSteer?.Invoke(angle);
         }
-
-#if UNITY_EDITOR
-        private void Update()
-        {
-            float input = Input.GetAxisRaw("Horizontal");
-            if (input != 0)
-                Rotate(-input * rotateSpeed * Time.deltaTime);
-
-        }
-#endif
     }
 }

@@ -8,18 +8,23 @@ namespace Bike
     [HideMonoScript]
     public class BikeHandler : MonoBehaviour
     {
-        [SerializeField] private Hero testRider;
-        [SerializeField] private SteererController handleBar;
-        [SerializeField] private CrankController crank;
+        [FoldoutGroup("References")] [SerializeField]
+        private SteererController handleBar;
+        [FoldoutGroup("References")] [SerializeField]
+        private CrankController crank;
+        
+        [FoldoutGroup("Parameters")] [SerializeField]
+        private float maxTurnAngle = 20f;
+        [FoldoutGroup("Parameters")] [SerializeField]
+        private uint turnSpeed = 90U;
         
         public event Action<float> OnSteerAngleChanged;
 
         private Hero _mountedRider;
+        private float _currentTurnAngle;
         
         private void Awake()
         {
-            Mount(testRider);
-
             handleBar.OnChangeSteer += InvokeSteerAngleChanged;
         }
 
@@ -36,6 +41,21 @@ namespace Bike
             _mountedRider = character as Hero;
             crank.SetFootMounts(character.RightFootMount, character.LeftFootMount);
             handleBar.SetHandMounts(character.RightHandMount, character.LeftHandMount);
+            
+            _mountedRider.transform.SetParent(transform);
+        }
+
+        public void SetPower(float power)
+        {
+            transform.Translate(transform.forward.normalized * power * Time.deltaTime);
+        }
+
+        public void Steer(float steerValue)
+        {
+            _currentTurnAngle = Mathf.Clamp(_currentTurnAngle + (turnSpeed * Time.deltaTime * steerValue), -maxTurnAngle,
+                maxTurnAngle);
+            
+            handleBar.Rotate(_currentTurnAngle);
         }
 
         protected virtual void InvokeSteerAngleChanged(float angle)

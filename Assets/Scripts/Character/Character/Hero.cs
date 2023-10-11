@@ -1,4 +1,6 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using Bike;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -18,16 +20,57 @@ namespace Character.Character
         [SerializeField] private Transform twistSpine;
 
         [SerializeField] private float twistRatio = 0.01f;
-        
+
+        [SerializeField] private BikeHandler targetBike;
+
+        private bool _mounted;
 
         public Transform LeftFootMount => leftFootMount;
         public Transform RightFootMount => rightFootMount;
         public Transform LeftHandMount => leftHandMount;
         public Transform RightHandMount => rightHandMount;
 
+        private Quaternion _twistingSpineOriginalRotation;
+
+        private void Awake()
+        {
+            _twistingSpineOriginalRotation = twistSpine.localRotation;
+        }
+
         public void SteerTwist(float angle)
         {
-            twistSpine.Rotate(twistSpine.up, angle * twistRatio, Space.World);
+            // TODO: 
+            twistSpine.localRotation = _twistingSpineOriginalRotation * Quaternion.Euler(0, angle * twistRatio, 0);
+            //
+            // twistSpine.Rotate(twistSpine.up, angle * twistRatio, Space.World);
         }
+        
+#if UNITY_EDITOR
+        [Button]
+        private void MountCurrentTarget()
+        {
+            if (targetBike != null)
+            {
+                targetBike.Mount(this);
+                _mounted = true;
+            }
+        }
+        
+        private void Update()
+        {
+            if (!_mounted)
+                return;
+            
+            float input = Input.GetAxisRaw("Horizontal");
+            if (input != 0)
+                targetBike.Steer(-input);
+
+            input = Input.GetAxisRaw("Vertical");
+            if (input != 0)
+                targetBike.SetPower(-input * 10f);
+            
+
+        }
+#endif
     }
 }
