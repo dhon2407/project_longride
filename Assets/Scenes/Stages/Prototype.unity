@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4044717213e31446939f7bd49c896ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 0, z: 4}
+  m_TrackedObjectOffset: {x: 0, y: 0, z: 50}
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
@@ -457,7 +457,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 325032667}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0000000016072721, y: 0.99562764, z: -0.093411416, w: -0.000000017131148}
+  m_LocalRotation: {x: 0.0000000016072724, y: 0.99562764, z: -0.093411416, w: 0.000000017131152}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -676,7 +676,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 509396706}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0000000020175184, y: 0.9937638, z: -0.11150591, w: 0.000000017980542}
+  m_LocalRotation: {x: -0, y: 0.9997599, z: -0.021914024, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1027,7 +1027,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1750015417}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0000000023213729, y: 0.9908773, z: -0.1347677, w: 0.000000017067855}
+  m_LocalRotation: {x: 0.0000000023188644, y: 0.9908773, z: -0.1347677, w: 0.00000001704941}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1228,7 +1228,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1927762504}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0000000038876222, y: 0.9937638, z: -0.1115059, w: 0.0000000346473}
+  m_LocalRotation: {x: 0, y: 0.9997599, z: -0.021914024, w: 0}
   m_LocalPosition: {x: 0.005, y: 2.581, z: 5.981}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1381,6 +1381,11 @@ PrefabInstance:
       propertyPath: testRider
       value: 
       objectReference: {fileID: 72495494}
+    - target: {fileID: 5964492587337950883, guid: 318f8ba3a9de1664c848824f111fe0e8,
+        type: 3}
+      propertyPath: steerNeutralReturnSmoothTime
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

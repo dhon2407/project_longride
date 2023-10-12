@@ -37,15 +37,16 @@ namespace Character.Character
             _twistingSpineOriginalRotation = twistSpine.localRotation;
         }
 
+        private void Start()
+        {
+            MountCurrentTarget();
+        }
+
         public void SteerTwist(float angle)
         {
-            // TODO: 
             twistSpine.localRotation = _twistingSpineOriginalRotation * Quaternion.Euler(0, angle * twistRatio, 0);
-            //
-            // twistSpine.Rotate(twistSpine.up, angle * twistRatio, Space.World);
         }
         
-#if UNITY_EDITOR
         [Button]
         private void MountCurrentTarget()
         {
@@ -56,6 +57,7 @@ namespace Character.Character
             }
         }
         
+#if UNITY_EDITOR
         private void Update()
         {
             if (!_mounted)
