@@ -22,6 +22,12 @@ namespace Bike
         private uint turningSpeed = 30U;
         [FoldoutGroup("Parameters")] [SerializeField]
         private float steerNeutralReturnSmoothTime = 0.5f;
+        [FoldoutGroup("Parameters")] [SerializeField]
+        private float tiltNeutralReturnSmoothTime = 0.2f;
+        [FoldoutGroup("Parameters")] [SerializeField]
+        private float turnToTiltRatio = 0.2f;
+        [FoldoutGroup("Parameters")] [SerializeField]
+        private float turnToYawRatio = 0.2f;
 
         public bool IsMounted => _mounted;
         public event Action<float> OnSteerAngleChanged;
@@ -35,6 +41,8 @@ namespace Bike
         private float _currentPower;
         private float _lastSteerInput;
         private float _steerNeutralCorrectionVelocity;
+        private float _tiltNeutralCorrectionVelocity;
+        private float _yawNeutralCorrectionVelocity;
 
         private void Awake()
         {
@@ -72,18 +80,46 @@ namespace Bike
             _lastSteerInput = steerValue;
             _currentTurnAngle = Mathf.Clamp(_currentTurnAngle + (steeringSpeed * Time.deltaTime * steerValue), -maxTurnAngle,
                 maxTurnAngle);
-            _moveDirection = Quaternion.AngleAxis(-_currentTurnAngle, _transform.up) * _transform.forward * (turningSpeed * Time.deltaTime);
-
+            _moveDirection = Quaternion.AngleAxis(-_currentTurnAngle, Vector3.up) * _transform.forward * (turningSpeed * Time.deltaTime);
+            
             handleBar.Rotate(_currentTurnAngle);
         }
 
         private void LateUpdate()
         {
             /* transform movement happens on late update when all inputs are processed */
-            _transform.Translate((_transform.forward + _moveDirection).normalized * (_currentPower * Time.deltaTime));
+            _transform.Translate((_transform.forward + _moveDirection).normalized * (_currentPower * Time.deltaTime), Space.World);
 
+            UpdateTilt();
             ResetMoveVelocity();
             ResetSteeringInput();
+        }
+
+        private void UpdateTilt()
+        {
+            Vector3 currentRotation = _transform.localRotation.eulerAngles;
+            float currentTilt = currentRotation.z;
+            float currentYaw = currentRotation.z;
+            
+            /* If not turning back to center */
+            if (_moveDirection == Vector3.zero ||  Mathf.Abs(_currentPower) <= 0f)
+            {
+                currentTilt = Mathf.SmoothDampAngle(currentTilt, 0, ref _tiltNeutralCorrectionVelocity,
+                    tiltNeutralReturnSmoothTime);
+                currentYaw = Mathf.SmoothDampAngle(currentYaw, 0, ref _yawNeutralCorrectionVelocity,
+                    tiltNeutralReturnSmoothTime);
+            }
+            else
+            {
+                currentTilt = Mathf.SmoothDampAngle(currentTilt, -_currentTurnAngle * turnToTiltRatio, ref _tiltNeutralCorrectionVelocity,
+                    tiltNeutralReturnSmoothTime);
+                currentYaw = Mathf.SmoothDampAngle(currentYaw, -_currentTurnAngle * turnToYawRatio, ref _tiltNeutralCorrectionVelocity,
+                    tiltNeutralReturnSmoothTime);
+            }
+            
+            currentRotation.z = currentTilt;
+            currentRotation.y = currentYaw;
+            _transform.localRotation = Quaternion.Euler(currentRotation.x, currentRotation.y, currentRotation.z);
         }
 
         private void ResetSteeringInput()

@@ -1,8 +1,6 @@
-﻿using System;
-using Bike;
+﻿using Bike;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Character.Character
 {
@@ -20,6 +18,7 @@ namespace Character.Character
         [SerializeField] private Transform twistSpine;
 
         [SerializeField] private float twistRatio = 0.01f;
+        [SerializeField] private float pedalPower = 10f;
 
         [SerializeField] private BikeHandler targetBike;
 
@@ -69,7 +68,7 @@ namespace Character.Character
 
             input = Input.GetAxisRaw("Vertical");
             if (input != 0)
-                targetBike.SetPower(-input * 10f);
+                targetBike.SetPower(-input * pedalPower);
             
 
         }

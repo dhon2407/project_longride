@@ -185,14 +185,14 @@ MonoBehaviour:
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
-  m_HorizontalDamping: 0
-  m_VerticalDamping: 0
+  m_HorizontalDamping: 0.5
+  m_VerticalDamping: 1.5
   m_ScreenX: 0.5
   m_ScreenY: 0.5
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
-  m_SoftZoneWidth: 0.8
-  m_SoftZoneHeight: 0.8
+  m_SoftZoneWidth: 0.2
+  m_SoftZoneHeight: 0.24
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1
@@ -211,11 +211,11 @@ MonoBehaviour:
   m_BindingMode: 1
   m_FollowOffset: {x: 0, y: 2.5, z: -7}
   m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
+  m_YDamping: 0
+  m_ZDamping: 1.7
   m_AngularDampingMode: 0
   m_PitchDamping: 0
-  m_YawDamping: 0
+  m_YawDamping: 20
   m_RollDamping: 0
   m_AngularDamping: 0
   m_Heading:
@@ -1136,7 +1136,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -98.2188}
-  m_LocalScale: {x: 1, y: 1, z: 40.485584}
+  m_LocalScale: {x: 1, y: 1, z: 400}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1383,6 +1383,16 @@ PrefabInstance:
       objectReference: {fileID: 72495494}
     - target: {fileID: 5964492587337950883, guid: 318f8ba3a9de1664c848824f111fe0e8,
         type: 3}
+      propertyPath: turnToYawRatio
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5964492587337950883, guid: 318f8ba3a9de1664c848824f111fe0e8,
+        type: 3}
+      propertyPath: turnToTiltRatio
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5964492587337950883, guid: 318f8ba3a9de1664c848824f111fe0e8,
+        type: 3}
       propertyPath: steerNeutralReturnSmoothTime
       value: 0.2
       objectReference: {fileID: 0}
@@ -1448,6 +1458,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909361893808060083, guid: 8d599df54502b8549b04b82ed9f06b71,
+        type: 3}
+      propertyPath: pedalPower
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6909361893808060083, guid: 8d599df54502b8549b04b82ed9f06b71,
         type: 3}
