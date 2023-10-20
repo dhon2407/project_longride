@@ -753,9 +753,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54b065dd720b48c784ad1926b9fb0c02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testRider: {fileID: 0}
   handleBar: {fileID: 52092346266567798}
   crank: {fileID: 8976386614749163458}
+  maxTurnAngle: 20
+  steeringSpeed: 90
+  turningSpeed: 30
+  steerNeutralReturnSmoothTime: 0.2
+  tiltNeutralReturnSmoothTime: 0.2
+  turnToTiltRatio: 0.5
+  turnToYawRatio: 2
+  turnRoadLimits: 4.45
 --- !u!1 &5838739477449696675
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,7 +2,6 @@
 using Character.Character;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Bike
 {
@@ -28,6 +27,8 @@ namespace Bike
         private float turnToTiltRatio = 0.2f;
         [FoldoutGroup("Parameters")] [SerializeField]
         private float turnToYawRatio = 0.2f;
+        [FoldoutGroup("Parameters")] [SerializeField]
+        private float turnRoadLimits = 0.2f;
 
         public bool IsMounted => _mounted;
         public event Action<float> OnSteerAngleChanged;
@@ -77,6 +78,18 @@ namespace Bike
 
         public void Steer(float steerValue)
         {
+            var turning = Turn.None;
+            if (steerValue > 0f)
+                turning = Turn.Left;
+            if (steerValue < 0f)
+                turning = Turn.Right;
+
+            if (turning == Turn.Left && _transform.position.x >= turnRoadLimits)
+                return;
+
+            if (turning == Turn.Right && _transform.position.x <= -turnRoadLimits)
+                return;
+            
             _lastSteerInput = steerValue;
             _currentTurnAngle = Mathf.Clamp(_currentTurnAngle + (steeringSpeed * Time.deltaTime * steerValue), -maxTurnAngle,
                 maxTurnAngle);
@@ -89,6 +102,10 @@ namespace Bike
         {
             /* transform movement happens on late update when all inputs are processed */
             _transform.Translate((_transform.forward + _moveDirection).normalized * (_currentPower * Time.deltaTime), Space.World);
+
+            var clampPosition = _transform.position;
+            clampPosition.x = Mathf.Clamp(clampPosition.x, -turnRoadLimits, turnRoadLimits);
+            _transform.position = clampPosition;
 
             UpdateTilt();
             ResetMoveVelocity();
@@ -148,5 +165,17 @@ namespace Bike
             if (IsMounted)
                 _mountedRider.SteerTwist(angle);
         }
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawRay(transform.position, Vector3.right * turnRoadLimits);
+            Gizmos.DrawRay(transform.position, -Vector3.right * turnRoadLimits);
+        }
+    }
+
+    public enum Turn
+    {
+        None,
+        Left,
+        Right,
     }
 }
